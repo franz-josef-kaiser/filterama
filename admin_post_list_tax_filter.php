@@ -14,9 +14,6 @@ defined( 'ABSPATH' ) OR exit;
  */
 
 add_action( 'plugins_loaded', array( 'WCM_Admin_PT_List_Tax_Filter', 'init' ) );
-/**
- *
- */
 class WCM_Admin_PT_List_Tax_Filter
 {
 	private static $instance;
@@ -29,7 +26,7 @@ class WCM_Admin_PT_List_Tax_Filter
 
 	static function init()
 	{
-		is_null( self :: $instance ) AND self :: $instance = new self;
+		null === self :: $instance AND self :: $instance = new self;
 		return self :: $instance;
 	}
 
@@ -41,25 +38,17 @@ class WCM_Admin_PT_List_Tax_Filter
 	public function setup()
 	{
 		add_action( current_filter(), array( $this, 'setup_vars' ), 20 );
-
 		add_action( 'restrict_manage_posts', array( $this, 'get_select' ) );
-
 		add_filter( "manage_taxonomies_for_{$this->post_type}_columns", array( $this, 'add_columns' ) );
-
-		#add_filter( "manage_{$this->post_type}_posts_columns", array( $this, 'add_column' ), 10, 2 );
-		#add_filter( "manage_{$this->post_type}_posts_custom_column", array( $this, 'add_column_content' ), 10, 2 );
 	}
 
 	public function setup_vars()
 	{
-		$this->post_type = get_current_screen()->post_type;
-		# $pt_obj = get_post_type_object( $this->post_type );
-		#wp_filter_object_list( $taxonomies, array( 'show_admin_column' => true ), 'and', 'name' );
+		$this->post_type  = get_current_screen()->post_type;
 		$this->taxonomies = array_diff(
 			 get_object_taxonomies( $this->post_type )
 			,get_taxonomies( array( 'show_admin_column' => 'false' ) )
 		);
-		var_dump( $this->taxonomies );
 	}
 
 	public function add_columns( $taxonomies )
@@ -67,26 +56,6 @@ class WCM_Admin_PT_List_Tax_Filter
 		return array_merge(
 			 $taxonomies
 			,$this->taxonomies
-		);
-	}
-
-	/**
-	 * Filters out built in taxonomies
-	 * @param array $tax
-	 */
-	public function filter_post_tax( $tax )
-	{
-		$builtin_taxonomies = get_taxonomies( array(
-			 '_builtin' => true
-			#,'object_type' => $this->post_type
-		) );
-		#in_array( $this->post_type, $GLOBALS['wp_taxonomies'][ $tax ]->object_type );
-		if ( 'post' !== $this->post_type )
-			return;
-
-		$this->taxonomies = array_diff(
-			 $this->taxonomies
-			,array( 'category', 'post_tag' )
 		);
 	}
 
@@ -100,7 +69,8 @@ class WCM_Admin_PT_List_Tax_Filter
 		foreach ( $this->taxonomies as $tax )
 		{
 			$options = sprintf(
-				'<option value="">View All %s</option>'
+				 '<option value="">%s %s</option>'
+				,__( 'View All' )
 				,get_taxonomy( $tax )->label
 			);
 			$class = is_taxonomy_hierarchical( $tax ) ? ' class="level-0"' : '';
@@ -124,49 +94,5 @@ class WCM_Admin_PT_List_Tax_Filter
 		}
 
 		return print $html;
-	}
-
-	/**
-	 * Adds the custom columns to the WP_List_Table
-	 * @param  array  $cols Default columns or added by other plugins
-	 * @param  string $post_type
-	 * @return array
-	 */
-	public function add_column( $cols, $post_type )
-	{
-		foreach ( $this->taxonomies as $tax )
-		{
-			! in_array( $tax, $cols ) AND $this->new_cols[ $tax ] = get_taxonomy( $tax )->label;
-		}
-
-		return array_merge(
-			$cols
-			,$this->new_cols
-		);
-	}
-
-	/**
-	 * Content for a column
-	 * @param  string $col_id  Taxonomy slug
-	 * @param  int    $post_id
-	 * @return string Linked Terms
-	 */
-	public function add_column_content( $col_id, $post_id )
-	{
-		timer_start();
-		if ( ! is_array( $terms = get_the_terms( $post_id, $col_id ) ) )
-			return print '&mdash;';
-		timer_stop(1,10);
-
-		foreach ( $terms as $key => $term )
-		{
-			$terms[ $key ] = sprintf(
-				'<a href="%s">%s</a>'
-				,get_term_link( $term, $col_id )
-				,$term->name
-			);
-		}
-
-		return print implode( ", ", array_filter( $terms ) );
 	}
 }

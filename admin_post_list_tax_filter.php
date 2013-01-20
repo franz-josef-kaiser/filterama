@@ -60,7 +60,7 @@ class WCM_Admin_PT_List_Tax_Filter
 	}
 
 	/**
-	 * Select form element to filter the post list
+	 * Select form elements, used to filter the post list
 	 * @return string HTML
 	 */
 	public function get_markup()

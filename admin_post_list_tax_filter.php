@@ -38,7 +38,7 @@ class WCM_Admin_PT_List_Tax_Filter
 	public function setup()
 	{
 		add_action( current_filter(), array( $this, 'setup_vars' ), 20 );
-		add_action( 'restrict_manage_posts', array( $this, 'get_select' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'get_markup' ) );
 		add_filter( "manage_taxonomies_for_{$this->post_type}_columns", array( $this, 'add_columns' ) );
 	}
 
@@ -63,7 +63,7 @@ class WCM_Admin_PT_List_Tax_Filter
 	 * Select form element to filter the post list
 	 * @return string HTML
 	 */
-	public function get_select()
+	public function get_markup()
 	{
 		$html = '';
 		foreach ( $this->taxonomies as $tax )
@@ -73,15 +73,15 @@ class WCM_Admin_PT_List_Tax_Filter
 				,__( 'View All' )
 				,get_taxonomy( $tax )->label
 			);
-			$class = is_taxonomy_hierarchical( $tax ) ? ' class="level-0"' : '';
 			foreach ( get_terms( $tax ) as $taxon )
 			{
+				$parent = '0' !== $taxon->parent ?: true;
 				$options .= sprintf(
-					 '<option %s%s value="%s">%s%s</option>'
-					,isset( $_GET[ $tax ] ) ? selected( $taxon->slug, $_GET[ $tax ], false ) : ''
-					,'0' !== $taxon->parent ? ' class="level-1"' : $class
+					 '<option class="level-%s" value="%s" %s>%s%s</option>'
+					,! $parent ? '1' : '0'
 					,$taxon->slug
-					,'0' !== $taxon->parent ? str_repeat( '&nbsp;', 3 ) : ''
+					,selected( $taxon->slug, $_GET[ $tax ], false )
+					,! $parent ? str_repeat( '&nbsp;', 3 ) : ''
 					,"{$taxon->name} ({$taxon->count})"
 				);
 			}

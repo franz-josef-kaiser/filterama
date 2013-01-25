@@ -47,7 +47,9 @@ class WCM_Admin_PT_List_Tax_Filter
 		$this->post_type  = get_current_screen()->post_type;
 		$this->taxonomies = array_diff(
 			 get_object_taxonomies( $this->post_type )
-			,get_taxonomies( array( 'show_admin_column' => 'false' ) )
+			,get_taxonomies( array(
+				'show_admin_column' => false
+			 ) )
 		);
 	}
 
@@ -75,12 +77,16 @@ class WCM_Admin_PT_List_Tax_Filter
 			);
 			foreach ( get_terms( $tax ) as $taxon )
 			{
+				$selected = isset( $_GET[ $tax ] )
+					? selected( $taxon->slug, $_GET[ $tax ], false )
+					: ''
+				;
 				$parent = '0' !== $taxon->parent ?: true;
 				$options .= sprintf(
 					 '<option class="level-%s" value="%s" %s>%s%s</option>'
 					,! $parent ? '1' : '0'
 					,$taxon->slug
-					,selected( $taxon->slug, $_GET[ $tax ], false )
+					,$selected
 					,! $parent ? str_repeat( '&nbsp;', 3 ) : ''
 					,"{$taxon->name} ({$taxon->count})"
 				);

@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) OR exit;
  * Plugin Name:  (WCM) Filterama
  * Plugin URI:   http://example.com
  * Description:  Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
- * Version:      0.3
+ * Version:      0.3.2
  * Author:       Franz Josef Kaiser <wecodemore@gmail.com>
  * Author URI:   http://example.com
  * Contributors: userabuser, kai-ser
@@ -41,7 +41,7 @@ class WCM_Admin_PT_List_Tax_Filter
 
 		// ALL or ANY
 		add_action( 'restrict_manage_posts', array( $this, 'get_markup_match' ) );
-		add_filter( 'posts_where' , array( $this, 'sql_match' ) );
+		add_filter( 'posts_where' , array( $this, 'sql_where_match' ) );
 	}
 
 	public function setup_vars()
@@ -55,6 +55,11 @@ class WCM_Admin_PT_List_Tax_Filter
 		);
 	}
 
+
+	/**
+	 * @param  array $taxonomies
+	 * @return array
+	 */
 	public function add_columns( $taxonomies )
 	{
 		return array_merge(
@@ -77,20 +82,20 @@ class WCM_Admin_PT_List_Tax_Filter
 				,__( 'View All' )
 				,get_taxonomy( $tax )->label
 			);
-			foreach ( get_terms( $tax ) as $taxon )
+			foreach ( get_terms( $tax ) as $term )
 			{
 				$selected = isset( $_GET[ $tax ] )
-					? selected( $taxon->slug, $_GET[ $tax ], false )
+					? selected( $term->slug, $_GET[ $tax ], false )
 					: ''
 				;
-				$parent = '0' !== $taxon->parent ?: true;
+				$parent = '0' !== $term->parent ?: true;
 				$options .= sprintf(
 					 '<option class="level-%s" value="%s" %s>%s%s</option>'
 					,! $parent ? '1' : '0'
-					,$taxon->slug
+					,$term->slug
 					,$selected
 					,! $parent ? str_repeat( '&nbsp;', 3 ) : ''
-					,"{$taxon->name} ({$taxon->count})"
+					,"{$term->name} ({$term->count})"
 				);
 			}
 			$html .= sprintf(
@@ -124,7 +129,7 @@ class WCM_Admin_PT_List_Tax_Filter
 	 * @param  string $where WHERE SQL clause
 	 * @return string SQL
 	 */
-	public function sql_match( $where )
+	public function sql_where_match( $where )
 	{
 		global $wpdb;
 		$tt_ids = $this->get_tax_ids();

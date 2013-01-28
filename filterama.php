@@ -36,12 +36,12 @@ class WCM_Admin_PT_List_Tax_Filter
 	public function setup()
 	{
 		add_action( current_filter(), array( $this, 'setup_vars' ), 20 );
-		add_action( 'restrict_manage_posts', array( $this, 'get_markup' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'get_markup_tax_select' ) );
 		add_filter( "manage_taxonomies_for_{$this->post_type}_columns", array( $this, 'add_columns' ) );
 
 		// ALL or ANY
-		# add_action( 'restrict_manage_posts', array( $this, 'all_or_any_markup' ) );
-		# add_filter( 'posts_where' , array( $this, 'all_or_any' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'get_markup_match' ) );
+		add_filter( 'posts_where' , array( $this, 'sql_match' ) );
 	}
 
 	public function setup_vars()
@@ -67,7 +67,7 @@ class WCM_Admin_PT_List_Tax_Filter
 	 * Select form elements, used to filter the post list
 	 * @return string HTML
 	 */
-	public function get_markup()
+	public function get_markup_tax_select()
 	{
 		$html = '';
 		foreach ( $this->taxonomies as $tax )
@@ -108,35 +108,59 @@ class WCM_Admin_PT_List_Tax_Filter
 	 * MarkUp for the "ALL or ANY" match select
 	 * @return string $html HTML
 	 */
-	public function all_or_any_markup()
+	public function get_markup_match()
 	{
-		$html = '';
-		return $html;
+		$html = get_submit_button(
+			 __( 'Match', 'filterarma_textdomain' )
+			,'secondary'
+			,'match'
+			,false
+		);
+		return print "{$html} &nbsp;";
 	}
 
 	/**
 	 * Intercept filter behavior to match ANY or ALL selected terms
-	 * @param  string $match WHERE SQL clause
+	 * @param  string $where WHERE SQL clause
 	 * @return string SQL
 	 */
-	public function all_or_any( $match )
+	public function sql_match( $where )
 	{
 		global $wpdb;
-		$param = 'match_all';
+		$param = 'match';
+		$taxonomies = array_filter( array_intersect_key(
+			$_GET
+			,array_flip( $this->taxonomies )
+		) );
 		if (
 			isset( $_GET[ $param ] )
 			AND ! empty( $_GET[ $param ] )
-		)
-			$match .= $wpdb->prepare(
+			AND ! empty( $taxonomies )
+			)
+		{
+			// Get set taxonomy terms
+			// Get IDs
+			$tt_ids = array();
+			foreach ( $taxonomies as $tax => $term_slug )
+				$tt_ids[] = term_exists( $term_slug, $tax );
+			// Nothing to do here
+			if ( empty( $tt_ids ) )
+				return $where;
+
+			$tt_ids = wp_list_pluck( $tt_ids, 'term_taxonomy_id' );
+
+			// Append to query string
+			$where .= $wpdb->prepare(
 				 " AND ID IN (
 				    SELECT object_id
 				    FROM {$wpdb->term_relationships}
 				    WHERE term_taxonomy_id
 				    IN (%s)
 				 )"
-				,implode( ",", $_GET[ $param ] )
+				,implode( ",", $tt_ids )
 			);
+		}
 
-		return $match;
+		return $where;
 	}
 }

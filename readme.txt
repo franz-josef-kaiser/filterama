@@ -22,7 +22,7 @@ If you want to get updates, just follow us on…
 == Installation ==
 
 1. Upload the `filterama` folder to the `/wp-content/plugins/` directory
-1. Activate the WordPress SEO plugin through the 'Plugins' menu in WordPress
+1. Activate the (WCM) Filterama plugin through the 'Plugins' menu in WordPress
 1. Done
 
 == Frequently Asked Questions ==

@@ -1,13 +1,14 @@
 <?php
 defined( 'ABSPATH' ) OR exit;
 /**
- * Plugin Name: (WCM) Admin Post List Taxonomy Filter
- * Plugin URI:  http://example.com
- * Description: Adds a taxonomy filter in the admin list page for a custom post type.
- * Version:     0.1
- * Author:      Franz Josef Kaiser <wecodemore@gmail.com>
- * Author URI:  http://example.com
- * License:     MIT
+ * Plugin Name:  (WCM) Filterama
+ * Plugin URI:   http://example.com
+ * Description:  Adds a taxonomy filter in the admin list page for a custom post type.
+ * Version:      0.2
+ * Author:       Franz Josef Kaiser <wecodemore@gmail.com>
+ * Author URI:   http://example.com
+ * Contributors:
+ * License:      MIT
  *
  * Originally written by: Mike Schinkel - http://mikeschinkel.com/custom-workpress-plugins
  * @link http://wordpress.stackexchange.com/posts/582/
@@ -40,6 +41,10 @@ class WCM_Admin_PT_List_Tax_Filter
 		add_action( current_filter(), array( $this, 'setup_vars' ), 20 );
 		add_action( 'restrict_manage_posts', array( $this, 'get_markup' ) );
 		add_filter( "manage_taxonomies_for_{$this->post_type}_columns", array( $this, 'add_columns' ) );
+
+		// ALL or ANY
+		# add_action( 'restrict_manage_posts', array( $this, 'all_or_any_markup' ) );
+		# add_filter( 'posts_where' , array( $this, 'all_or_any' ) );
 	}
 
 	public function setup_vars()
@@ -100,5 +105,36 @@ class WCM_Admin_PT_List_Tax_Filter
 		}
 
 		return print $html;
+	}
+
+	/**
+	 * MarkUp for the "ALL or ANY" match select
+	 * @return string $html HTML
+	 */
+	public function all_or_any_markup()
+	{
+		$html = '';
+		return $html;
+	}
+
+	/**
+	 * Intercept filter behavior to match ANY or ALL selected terms
+	 * @param  string $match WHERE SQL clause
+	 * @return string SQL
+	 */
+	public function all_or_any( $match )
+	{
+		global $wpdb;
+		$array_of_ids = $_GET['match_all'];
+		if (
+			isset( $array_of_ids )
+			AND ! empty( $array_of_ids )
+		)
+			$match .= $wpdb->prepare(
+				 " AND ID IN (SELECT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN (%s))"
+				,implode( ",", $array_of_ids )
+			);
+
+		return $match;
 	}
 }

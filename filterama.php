@@ -122,14 +122,19 @@ class WCM_Admin_PT_List_Tax_Filter
 	public function all_or_any( $match )
 	{
 		global $wpdb;
-		$array_of_ids = $_GET['match_all'];
+		$param = 'match_all';
 		if (
-			isset( $array_of_ids )
-			AND ! empty( $array_of_ids )
+			isset( $_GET[ $param ] )
+			AND ! empty( $_GET[ $param ] )
 		)
 			$match .= $wpdb->prepare(
-				 " AND ID IN (SELECT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN (%s))"
-				,implode( ",", $array_of_ids )
+				 " AND ID IN (
+				    SELECT object_id
+				    FROM {$wpdb->term_relationships}
+				    WHERE term_taxonomy_id
+				    IN (%s)
+				 )"
+				,implode( ",", $_GET[ $param ] )
 			);
 
 		return $match;

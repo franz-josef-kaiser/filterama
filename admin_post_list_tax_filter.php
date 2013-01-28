@@ -3,15 +3,12 @@ defined( 'ABSPATH' ) OR exit;
 /**
  * Plugin Name:  (WCM) Filterama
  * Plugin URI:   http://example.com
- * Description:  Adds a taxonomy filter in the admin list page for a custom post type.
+ * Description:  Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
  * Version:      0.2
  * Author:       Franz Josef Kaiser <wecodemore@gmail.com>
  * Author URI:   http://example.com
- * Contributors:
+ * Contributors: userabuser, kai-ser
  * License:      MIT
- *
- * Originally written by: Mike Schinkel - http://mikeschinkel.com/custom-workpress-plugins
- * @link http://wordpress.stackexchange.com/posts/582/
  */
 
 add_action( 'plugins_loaded', array( 'WCM_Admin_PT_List_Tax_Filter', 'init' ) );

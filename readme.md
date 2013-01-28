@@ -34,7 +34,7 @@ Preparation for this feature is in production. Expect it with a future version.
 ## Screenshots ##
 
 ###1. The Plugin in action on a custom post type###
-![The Plugin in action on a custom post type](http://s.wordpress.org/extend/plugins/(wcm)-filterama/screenshot-1.png)
+![The Plugin in action on a custom post type](https://raw.github.com/franz-josef-kaiser/filterama/master/screenshot-1.png)
 
 
 ## Changelog ##

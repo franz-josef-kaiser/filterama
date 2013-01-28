@@ -127,40 +127,52 @@ class WCM_Admin_PT_List_Tax_Filter
 	public function sql_match( $where )
 	{
 		global $wpdb;
+		$tt_ids = $this->get_tax_ids();
+		if ( empty( $tt_ids ) )
+			return $where;
+
+		$where .= $wpdb->prepare(
+			 " AND ID IN (
+			    SELECT object_id
+			    FROM {$wpdb->term_relationships}
+			    WHERE term_taxonomy_id
+			    IN (%s)
+			 )"
+			,implode( ",", $tt_ids )
+		);
+
+		return $where;
+	}
+
+
+	/**
+	 * Intersects the $_GET params with our custom taxonomies
+	 * @return array $tt_ids IDs of terms of match
+	 */
+	public function get_tax_ids()
+	{
 		$param = 'match';
+
+		// Get set taxonomy terms
 		$taxonomies = array_filter( array_intersect_key(
 			$_GET
 			,array_flip( $this->taxonomies )
 		) );
+
+		$tt_ids = array();
 		if (
-			isset( $_GET[ $param ] )
-			AND ! empty( $_GET[ $param ] )
-			AND ! empty( $taxonomies )
-			)
-		{
-			// Get set taxonomy terms
-			// Get IDs
-			$tt_ids = array();
-			foreach ( $taxonomies as $tax => $term_slug )
-				$tt_ids[] = term_exists( $term_slug, $tax );
-			// Nothing to do here
-			if ( empty( $tt_ids ) )
-				return $where;
+			! isset( $_GET[ $param ] )
+			OR empty( $_GET[ $param ] )
+			OR empty( $taxonomies )
+		)
+			return $tt_ids;
 
-			$tt_ids = wp_list_pluck( $tt_ids, 'term_taxonomy_id' );
+		// Get IDs
+		foreach ( $taxonomies as $tax => $term_slug )
+			$tt_ids[] = term_exists( $term_slug, $tax );
 
-			// Append to query string
-			$where .= $wpdb->prepare(
-				 " AND ID IN (
-				    SELECT object_id
-				    FROM {$wpdb->term_relationships}
-				    WHERE term_taxonomy_id
-				    IN (%s)
-				 )"
-				,implode( ",", $tt_ids )
-			);
-		}
+		! empty( $tt_ids ) AND $tt_ids = wp_list_pluck( $tt_ids, 'term_taxonomy_id' );
 
-		return $where;
+		return $tt_ids;
 	}
 }

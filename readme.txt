@@ -37,6 +37,27 @@ Preparation for this feature is in production. Expect it with a future version.
 
 == Changelog ==
 
+= 0.3.4 =
+
+ * Added base file
+ * Smartened up loading logic
+
+= 0.3.3 =
+
+ * Split into separate files: bootstrap, filters, match
+ * Wrapped up in several classes
+ * Added Milestones & GitHub Issues for 0.4 & 0.5
+
+= 0.3.2 =
+
+ * Added "Match" button
+ * Added "Match" query string filter
+ * Added term ID fetching method
+
+= 0.3.1 =
+
+ * Decent optimisations
+
 = 0.3 =
 
  * Repo ready

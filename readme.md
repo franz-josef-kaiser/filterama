@@ -1,4 +1,4 @@
-# (WCM) Filterama #
+# (WCM) Filterama
 **Contributors:** F J Kaiser, userabuser, kai-ser
 **License:** MIT
 **Tags:** admin, post, list, filter, categories, tags, post-tags, taxonomy, taxonomies
@@ -6,11 +6,11 @@
 **Tested up to:** 3.5.1
 **Stable tag:** 0.3
 
-## Description ##
+## Description
 
 Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
 
-### (WCM) WeCodeMore ###
+### (WCM) WeCodeMore
 
 WeCodeMore is your label for high quality WordPress code from renowned authors.
 
@@ -19,32 +19,53 @@ If you want to get updates, just follow us on…
  * [our page on Google+](https://plus.google.com/b/109907580576615571040/109907580576615571040/posts)
  * [our GitHub repository](https://github.com/wecodemore)
 
-## Installation ##
+## Installation
 
 1. Upload the `filterama` folder to the `/wp-content/plugins/` directory
 1. Activate the (WCM) Filterama plugin through the 'Plugins' menu in WordPress
 1. Done
 
-## Frequently Asked Questions ##
+## Frequently Asked Questions
 
-### Can I match by any term instead of all? ###
+### Can I match by any term instead of all?
 
 Preparation for this feature is in production. Expect it with a future version.
 
-## Screenshots ##
+## Screenshots
 
 ###1. The Plugin in action on a custom post type###
 ![The Plugin in action on a custom post type](https://raw.github.com/franz-josef-kaiser/filterama/master/screenshot-1.png)
 
 
-## Changelog ##
+## Changelog
 
-### 0.3 ###
+### 0.3.4
+
+ * Added base file
+ * Smartened up loading logic
+
+### 0.3.3
+
+ * Split into separate files: bootstrap, filters, match
+ * Wrapped up in several classes
+ * Added Milestones & GitHub Issues for 0.4 & 0.5
+
+### 0.3.2
+
+ * Added "Match" button
+ * Added "Match" query string filter
+ * Added term ID fetching method
+
+### 0.3.1
+
+ * Decent optimisations
+
+### 0.3
 
  * Repo ready
  * Added screenshot
  * Added readme.txt
 
-## Upgrade Notice ##
+## Upgrade Notice
 
  * Nothing. Things just work like a charm.

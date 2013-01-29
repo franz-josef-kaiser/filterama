@@ -38,15 +38,14 @@ final class WCMF_match extends WCMF_base
 		$tt_ids = $this->get_tax_ids();
 		if ( empty( $tt_ids ) )
 			return $where;
-
 		$where .= $wpdb->prepare(
 			" AND ID IN (
 			    SELECT object_id
 			    FROM {$wpdb->term_relationships}
 			    WHERE term_taxonomy_id
-			    IN (%s)
+			    IN (%d)
 			 )"
-			,implode( ",", $tt_ids )
+			,join( ",", $tt_ids )
 		);
 
 		return $where;
@@ -69,6 +68,8 @@ final class WCMF_match extends WCMF_base
 			! isset( $_GET[ $param ] )
 			OR empty( $_GET[ $param ] )
 			OR empty( $taxonomies )
+			// Noting to match for a single tax
+			OR 1 >= count( $taxonomies )
 		)
 			return $tt_ids;
 

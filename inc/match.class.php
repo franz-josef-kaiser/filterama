@@ -39,14 +39,14 @@ final class WCMF_match extends WCMF_base
 		if ( empty( $tt_ids ) )
 			return $where;
 
-		$where .= $wpdb->prepare(
-			" AND ID IN (
-			    SELECT object_id
-			    FROM {$wpdb->term_relationships}
-			    WHERE term_taxonomy_id
-			    IN (%s)
-			 )"
-			,implode( ",", $tt_ids )
+		$where = $wpdb->prepare(
+		   "AND wp_posts.post_type = '{$this->post_type}' 
+			AND ID IN (
+				SELECT object_id
+				FROM {$wpdb->term_relationships}
+				WHERE term_taxonomy_id
+				IN (". implode(',', array_map('intval', $tt_ids)) . ")
+			)"
 		);
 
 		return $where;

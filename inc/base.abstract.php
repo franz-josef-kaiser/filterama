@@ -15,7 +15,7 @@ abstract class WCMF_base
 
 	public function __construct()
 	{
-		add_action( current_filter(), array( $this, 'setup_vars' ) );
+		add_action( current_filter(), array( $this, 'setup_vars' ), 15 );
 		add_action( current_filter(), array( $this, 'setup_actions' ), 20 );
 		add_action( 'restrict_manage_posts', array( $this, 'get_markup' ) );
 	}

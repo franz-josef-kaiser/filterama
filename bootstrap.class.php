@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) OR exit;
  * Plugin Name:  (WCM) Filterama
  * Plugin URI:   http://example.com
  * Description:  Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
- * Version:      0.3.3
+ * Version:      0.3.5
  * Author:       Franz Josef Kaiser <wecodemore@gmail.com>
  * Author URI:   http://example.com
  * Contributors: userabuser, kai-ser

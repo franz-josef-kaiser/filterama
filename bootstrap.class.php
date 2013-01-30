@@ -40,9 +40,10 @@ class WCMF_bootstrap
 
 	public function l18n()
 	{
-		load_theme_textdomain(
+		load_plugin_textdomain(
 			 'filterama'
-			,plugin_dir_path( __FILE__ ).'/lang'
+			,false
+			,'/lang'
 		);
 	}
 }

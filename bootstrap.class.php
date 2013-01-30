@@ -43,7 +43,7 @@ class WCMF_bootstrap
 		load_plugin_textdomain(
 			 'filterama'
 			,false
-			,'/lang'
+			,plugin_basename( dirname( __FILE__ ) ).'/lang'
 		);
 	}
 }

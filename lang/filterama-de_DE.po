@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Filterama 0.5\n"
 "POT-Creation-Date: 2013-01-30 15:23+0100\n"
-"PO-Revision-Date: 2013-01-30 15:39+0100\n"
+"PO-Revision-Date: 2013-01-30 22:15+0100\n"
 "Last-Translator: Franz Josef Kaiser <wecodemore@gmail.com>\n"
 "Language-Team: Kaiser <wecodemore@gmail.com>\n"
 "Language: en_EN\n"
@@ -17,8 +17,8 @@ msgstr ""
 
 #: filter.class.php:40
 msgid "View All"
-msgstr "Zeige alle"
+msgstr "Alle"
 
 #: match.class.php:27
 msgid "Match"
-msgstr "Treffer anzeigen"
+msgstr "Alle Treffer"

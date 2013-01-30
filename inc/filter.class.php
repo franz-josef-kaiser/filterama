@@ -31,44 +31,22 @@ final class WCMF_filter extends WCMF_base
 
 	public function get_markup()
 	{
-		$html = '';
 		foreach ( $this->taxonomies as $tax )
 		{
-			$options = sprintf(
-				 '<option value="">%s %s</option>'
-				,__( 'View All' )
-				,get_taxonomy( $tax )->label
+			$options = array(
+				 'taxonomy'        => $tax
+				,'show_option_all' => sprintf(
+					 '%s %s'
+					,__( 'View All' )
+					,get_taxonomy( $tax )->label
+				 )
+				,'hide_empty'   => 0
+				,'hierarchical' => is_taxonomy_hierarchical( $tax )
+				,'show_count'   => 1
+				,'orderby'      => 'name'
+				,'selected'     => $tax
 			);
-			foreach ( get_terms( $tax ) as $term )
-			{
-				$selected = isset( $_GET[ $tax ] )
-					? selected( $term->slug, $_GET[ $tax ], false )
-					: ''
-				;
-				$parent = false;
-				if (
-					0 >= absint( $term->parent )
-					OR ! is_taxonomy_hierarchical( $tax )
-				)
-					$parent = true;
-
-				$options .= sprintf(
-					 '<option class="level-%s" value="%s" %s>%s%s</option>'
-					,! $parent ? '1' : '0'
-					,$term->slug
-					,$selected
-					,! $parent ? str_repeat( '&nbsp;', 3 ) : ''
-					,"{$term->name} <sup>({$term->count})</sup>"
-				);
-			}
-			$html .= sprintf(
-				 '<select name="%s" id="%s" class="postform">%s</select>'
-				,$tax
-				,$tax
-				,$options
-			);
+			wp_dropdown_categories( $options );
 		}
-
-		return print $html;
 	}
 }

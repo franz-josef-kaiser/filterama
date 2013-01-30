@@ -38,7 +38,7 @@ class WCMF_bootstrap
 			require_once $file;
 	}
 
-	public function l18n()
+	public function load_l18n()
 	{
 		load_plugin_textdomain(
 			 'filterama'

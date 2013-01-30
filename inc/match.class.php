@@ -18,7 +18,7 @@ final class WCMF_match extends WCMF_base
 
 	public function setup_actions()
 	{
-		add_filter( 'posts_where' , array( $this, 'set_where' ) );
+		add_filter( 'pre_get_posts', array( $this, 'tax_filter' ) );
 	}
 
 	public function get_markup()
@@ -32,23 +32,14 @@ final class WCMF_match extends WCMF_base
 		return print "{$html} &nbsp;";
 	}
 
-	public function set_where( $where )
+	public function tax_filter( &$query )
 	{
-		global $wpdb;
-		$tt_ids = $this->get_tax_ids();
-		if ( empty( $tt_ids ) )
-			return $where;
-		$where .= $wpdb->prepare(
-			" AND ID IN (
-			    SELECT object_id
-			    FROM {$wpdb->term_relationships}
-			    WHERE term_taxonomy_id
-			    IN (%d)
-			 )"
-			,join( ",", $tt_ids )
+		property_exists( $query->tax_query, 'queries' ) AND $tax_query = array_merge(
+			 $query->tax_query->queries
+			,array( 'relation' => 'OR' )
 		);
-
-		return $where;
+		$query->set( 'tax_query', $tax_query );
+		return $query;
 	}
 
 # ====== HELPER

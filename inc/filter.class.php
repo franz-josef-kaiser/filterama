@@ -45,14 +45,20 @@ final class WCMF_filter extends WCMF_base
 					? selected( $term->slug, $_GET[ $tax ], false )
 					: ''
 				;
-				$parent = '0' !== $term->parent ?: true;
+				$parent = false;
+				if (
+					0 >= absint( $term->parent )
+					OR ! is_taxonomy_hierarchical( $tax )
+				)
+					$parent = true;
+
 				$options .= sprintf(
 					 '<option class="level-%s" value="%s" %s>%s%s</option>'
 					,! $parent ? '1' : '0'
 					,$term->slug
 					,$selected
 					,! $parent ? str_repeat( '&nbsp;', 3 ) : ''
-					,"{$term->name} ({$term->count})"
+					,"{$term->name} <sup>({$term->count})</sup>"
 				);
 			}
 			$html .= sprintf(

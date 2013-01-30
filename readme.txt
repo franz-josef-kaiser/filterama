@@ -12,6 +12,9 @@ Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a
 (custom) post types list in the admin post list page. Also adds a "match" button
 so you can now "filter" the list by ALL or ANY taxonomy terms.
 
+Available in English & German. Translations welcome. Just grab the .pot file, translate the
+two strings and send us an email or file a pull request on GitHub.
+
 = (WCM) WeCodeMore =
 
 WeCodeMore is your label for high quality WordPress code from renowned authors.
@@ -39,11 +42,18 @@ Preparation for this feature is in production. Expect it with a future version.
 
 == Changelog ==
 
+= 1.0 =
+
+ * Release ready
+
 = 0.5 =
 
  * Fixed hierarchical display of hierarchical taxonomy select elements
  * Now uses a core function
  * Sorts elements by parent
+ * Added .pot catalogue
+ * Added translation files for EN and DE
+ * Fixed translation file loading
 
 = 0.4 =
 

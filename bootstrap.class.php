@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) OR exit;
  * Plugin Name:  (WCM) Filterama
  * Plugin URI:   http://example.com
  * Description:  Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
- * Version:      0.3.5
+ * Version:      0.4
  * Author:       Franz Josef Kaiser <wecodemore@gmail.com>
  * Author URI:   http://example.com
  * Contributors: userabuser, kai-ser
@@ -28,12 +28,21 @@ class WCMF_bootstrap
 
 	public function __construct()
 	{
-		add_action( 'load-edit.php', array( $this, 'load' ), 0 );
+		add_action( 'load-edit.php', array( $this, 'load_files' ), 0 );
+		add_action( 'load-edit.php', array( $this, 'load_l18n' ), 0 );
 	}
 
-	public function load()
+	public function load_files()
 	{
 		foreach ( glob( plugin_dir_path( __FILE__ ).'inc/*.php' ) as $file )
 			require_once $file;
+	}
+
+	public function l18n()
+	{
+		load_theme_textdomain(
+			 'filterama'
+			,plugin_dir_path( __FILE__ ).'/lang'
+		);
 	}
 }

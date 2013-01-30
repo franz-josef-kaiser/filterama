@@ -37,7 +37,7 @@ final class WCMF_filter extends WCMF_base
 				 'taxonomy'        => $tax
 				,'show_option_all' => sprintf(
 					 '%s %s'
-					,__( 'View All' )
+					,__( 'View All', 'filterama' )
 					,get_taxonomy( $tax )->label
 				 )
 				,'hide_empty'   => 0

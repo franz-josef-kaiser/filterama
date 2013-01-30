@@ -4,11 +4,13 @@ License: MIT
 Tags: admin, post, list, filter, categories, tags, post-tags, taxonomy, taxonomies
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 0.3
+Stable tag: 0.5
 
 == Description ==
 
-Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a (custom) post types list in the admin post list page.
+Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a
+(custom) post types list in the admin post list page. Also adds a "match" button
+so you can now "filter" the list by ALL or ANY taxonomy terms.
 
 = (WCM) WeCodeMore =
 
@@ -36,6 +38,18 @@ Preparation for this feature is in production. Expect it with a future version.
 1. The Plugin in action on a custom post type
 
 == Changelog ==
+
+= 0.5 =
+
+ * Fixed hierarchical display of hierarchical taxonomy select elements
+ * Now uses a core function
+ * Sorts elements by parent
+
+= 0.4 =
+
+ * Added l18n/translation loading
+ * Added "match" button and behavior
+ * Intercept on pre_get_posts to alter the tax query for "match"
 
 = 0.3.4 =
 

@@ -24,7 +24,7 @@ final class WCMF_match extends WCMF_base
 	public function get_markup()
 	{
 		$html = get_submit_button(
-			 __( 'Match', 'filterarma_textdomain' )
+			 __( 'Match', 'filterarma' )
 			,'secondary'
 			,'match'
 			,false

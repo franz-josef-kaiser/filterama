@@ -10,6 +10,8 @@ final class WCMF_match extends WCMF_base
 {
 	protected static $instance;
 
+	public $get_param = 'match';
+
 	public static function init()
 	{
 		null === self::$instance AND self::$instance = new self;
@@ -23,22 +25,42 @@ final class WCMF_match extends WCMF_base
 
 	public function get_markup()
 	{
-		$html = get_submit_button(
-			 __( 'Match', 'filterama' )
-			,'secondary'
-			,'match'
-			,false
+		return printf(
+			 '%s &nbsp;'
+			,get_submit_button(
+				 __( 'Match', 'filterama' )
+				,'secondary'
+				,$this->get_param
+				,false
+			 )
 		);
-		return print "{$html} &nbsp;";
 	}
 
+	/**
+	 * Attaches the `tax_query` query var to the $wp_query object.
+	 * The "original" $tax_query property inside the $wp_query object
+	 * is a reference to the `WP_Tax_Query` class and can not be used
+	 * to set arguments for a tax query. Therefore the sub object has
+	 * to be taken, transformed and then attached to the `query_vars`
+	 * part of the $wp_query object. Else the `relation` argument
+	 * gets unset, will not be used and the default is `AND`.
+	 * @param  object $query References to the current `$wp_query` object
+	 * @return object $query
+	 */
 	public function tax_filter( &$query )
 	{
-		property_exists( $query->tax_query, 'queries' ) AND $tax_query = array_merge(
-			 $query->tax_query->queries
-			,array( 'relation' => 'OR' )
-		);
-		$query->set( 'tax_query', $tax_query );
+		if (
+			! isset( $_GET[ $this->get_param ] )
+			OR ! $query->is_main_query()
+		)
+			return;
+
+		property_exists( $query->tax_query, 'queries' )
+		AND ! empty( $query->tax_query->queries )
+			AND $query->set( 'tax_query', array_merge(
+				 $query->tax_query->queries
+				,array( 'relation' => 'OR' )
+			) );
 		return $query;
 	}
 
@@ -46,8 +68,6 @@ final class WCMF_match extends WCMF_base
 
 	public function get_tax_ids()
 	{
-		$param = 'match';
-
 		// Get set taxonomy terms
 		$taxonomies = array_filter( array_intersect_key(
 			 $_GET
@@ -56,8 +76,7 @@ final class WCMF_match extends WCMF_base
 
 		$tt_ids = array();
 		if (
-			! isset( $_GET[ $param ] )
-			OR empty( $_GET[ $param ] )
+			! isset( $_GET[ $this->get_param ] )
 			OR empty( $taxonomies )
 			// Noting to match for a single tax
 			OR 1 >= count( $taxonomies )

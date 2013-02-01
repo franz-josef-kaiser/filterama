@@ -35,7 +35,7 @@ class WCMF_bootstrap
 	public function load_files()
 	{
 		foreach ( glob( plugin_dir_path( __FILE__ ).'inc/*.php' ) as $file )
-			require_once $file;
+			include_once $file;
 	}
 
 	public function load_l18n()

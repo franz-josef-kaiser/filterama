@@ -42,6 +42,11 @@ Preparation for this feature is in production. Expect it with a future version.
 
 == Changelog ==
 
+= 1.1 =
+
+ * Simplified internals
+ * Added custom walker
+
 = 1.0 =
 
  * Release ready

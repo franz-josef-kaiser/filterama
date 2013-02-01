@@ -13,7 +13,7 @@ Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a
 so you can now "filter" the list by ALL or ANY taxonomy terms.
 
 Available in English & German. Translations welcome. Just grab the .pot file, translate the
-two strings and send us an email or file a pull request on GitHub.
+single string and/or send us an email or file a pull request on GitHub.
 
 = (WCM) WeCodeMore =
 

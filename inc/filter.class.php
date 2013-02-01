@@ -18,7 +18,10 @@ final class WCMF_filter extends WCMF_base
 
 	public function setup_actions()
 	{
-		add_filter( "manage_taxonomies_for_{$this->post_type}_columns", array( $this, 'add_columns' ) );
+		add_filter(
+			 "manage_taxonomies_for_{$this->post_type}_columns"
+			,array( $this, 'add_columns' )
+		);
 	}
 
 	public function add_columns( $taxonomies )
@@ -31,22 +34,26 @@ final class WCMF_filter extends WCMF_base
 
 	public function get_markup()
 	{
+		$walker = new WCMF_walker;
 		foreach ( $this->taxonomies as $tax )
 		{
-			$options = array(
+			wp_dropdown_categories( array(
 				 'taxonomy'        => $tax
+				,'hide_if_empty'   => true
 				,'show_option_all' => sprintf(
-					 '%s %s'
-					,__( 'View All', 'filterama' )
-					,get_taxonomy( $tax )->label
+					 get_taxonomy( $tax )->labels->all_items
 				 )
-				,'hide_empty'   => 0
-				,'hierarchical' => is_taxonomy_hierarchical( $tax )
-				,'show_count'   => 1
-				,'orderby'      => 'name'
-				,'selected'     => $tax
-			);
-			wp_dropdown_categories( $options );
+				,'hide_empty'      => true
+				,'hierarchical'    => is_taxonomy_hierarchical( $tax )
+				,'show_count'      => true
+				,'orderby'         => 'name'
+				,'selected'        => '0' !== get_query_var( $tax )
+					? get_query_var( $tax )
+					: false
+				,'name'            => $tax
+				,'id'              => $tax
+				,'walker'          => $walker
+			) );
 		}
 	}
 }

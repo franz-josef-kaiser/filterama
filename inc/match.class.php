@@ -26,13 +26,13 @@ final class WCMF_match extends WCMF_base
 	public function get_markup()
 	{
 		return printf(
-			 '%s &nbsp;'
-			,get_submit_button(
-				 __( 'Match', 'filterama' )
-				,'secondary'
-				,$this->get_param
-				,false
-			 )
+			'%s &nbsp;',
+			get_submit_button(
+				__( 'Match', 'filterama' ),
+				'secondary',
+				$this->get_param,
+				false
+			)
 		);
 	}
 
@@ -58,8 +58,8 @@ final class WCMF_match extends WCMF_base
 		property_exists( $query->tax_query, 'queries' )
 		AND ! empty( $query->tax_query->queries )
 			AND $query->set( 'tax_query', array_merge(
-				 $query->tax_query->queries
-				,array( 'relation' => 'OR' )
+				$query->tax_query->queries,
+				array( 'relation' => 'OR' )
 			) );
 		return $query;
 	}
@@ -70,8 +70,8 @@ final class WCMF_match extends WCMF_base
 	{
 		// Get set taxonomy terms
 		$taxonomies = array_filter( array_intersect_key(
-			 $_GET
-			,array_flip( $this->taxonomies )
+			$_GET,
+			array_flip( $this->taxonomies )
 		) );
 
 		$tt_ids = array();
@@ -87,7 +87,8 @@ final class WCMF_match extends WCMF_base
 		foreach ( $taxonomies as $tax => $term_slug )
 			$tt_ids[] = term_exists( $term_slug, $tax );
 
-		! empty( $tt_ids ) AND $tt_ids = wp_list_pluck( $tt_ids, 'term_taxonomy_id' );
+		! empty( $tt_ids )
+			AND $tt_ids = wp_list_pluck( $tt_ids, 'term_taxonomy_id' );
 
 		return $tt_ids;
 	}

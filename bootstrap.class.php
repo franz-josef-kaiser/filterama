@@ -22,8 +22,8 @@ class WCMF_bootstrap
 
 	static function init()
 	{
-		null === self :: $instance AND self :: $instance = new self;
-		return self :: $instance;
+		null === self::$instance AND self :: $instance = new self;
+		return self::$instance;
 	}
 
 	public function __construct()
@@ -41,9 +41,9 @@ class WCMF_bootstrap
 	public function load_l18n()
 	{
 		load_plugin_textdomain(
-			 'filterama'
-			,false
-			,plugin_basename( dirname( __FILE__ ) ).'/lang'
+			'filterama',
+			false,
+			plugin_basename( dirname( __FILE__ ) ).'/lang'
 		);
 	}
 }

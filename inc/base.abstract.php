@@ -36,12 +36,12 @@ abstract class WCMF_base
 	public function setup_taxonomies()
 	{
 		! isset( $this->taxonomies ) AND $this->taxonomies = array_diff(
-			 get_object_taxonomies( $this->post_type )
-			,get_taxonomies( array(
+			get_object_taxonomies( $this->post_type ),
+			get_taxonomies( array(
 				'show_admin_column' => false
-			 ) )
-			 // Hard coded taxonomy selects
-			,array( 'category', 'link_category', 'post_tag' )
+			) ),
+			// Hard coded taxonomy selects
+			array( 'category', 'link_category', 'post_tag' )
 		);
 	}
 
@@ -54,11 +54,11 @@ abstract class WCMF_base
 			return;
 
 		$args = array(
-			 'private'                   => false
-			,'internal'                  => false
-			,'exclude_from_search'       => false
-			,'show_in_admin_all_list'    => true
-			,'show_in_admin_status_list' => true
+			'private'                   => false,
+			'internal'                  => false,
+			'exclude_from_search'       => false,
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
 		);
 		current_user_can(
 			get_post_type_object( $this->post_type )

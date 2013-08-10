@@ -24,16 +24,16 @@ class WCMF_walker extends Walker_CategoryDropdown
 		$pad = str_repeat( '&nbsp;', $depth * 3 );
 		$cat_name = apply_filters( 'list_cats', $term->name, $term );
 		$output .= sprintf(
-			 '<option class="level-%s" value="%s" %s>%s%s</option>'
-			,$depth
-			,$term->slug
-			,selected(
-				 $args['selected']
-				,$term->slug
-				,false
-			 )
-			,"{$pad}{$cat_name}"
-			,$args['show_count']
+			'<option class="level-%s" value="%s" %s>%s%s</option>',
+			$depth,
+			$term->slug,
+			selected(
+				$args['selected'],
+				$term->slug,
+				false
+			),
+			"{$pad}{$cat_name}",
+			$args['show_count']
 				? "&nbsp;&nbsp;({$term->count})"
 				: ''
 		);

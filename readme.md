@@ -3,8 +3,8 @@
 **License:** MIT
 **Tags:** admin, post, list, filter, categories, tags, post-tags, taxonomy, taxonomies
 **Requires at least:** 3.5
-**Tested up to:** 3.5.1
-**Stable tag:** 1.1
+**Tested up to:** 3.6
+**Stable tag:** 1.2
 
 ## Description
 
@@ -43,6 +43,10 @@ Preparation for this feature is in production. Expect it with a future version.
 
 
 ## Changelog
+
+### 1.2
+
+ * Updated custom Walker to align with defaults from WP Category Walker
 
 ### 1.1
 

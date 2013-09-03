@@ -1,14 +1,29 @@
 <?php
 defined( 'ABSPATH' ) OR exit;
 
+/**
+ * Class WCMF_walker
+ * @extends Walker_CategoryDropdown
+ */
 class WCMF_walker extends Walker_CategoryDropdown
 {
+	/**
+	 * @var string
+	 */
 	var $tree_type = 'category';
+
+	/**
+	 * @var array
+	 */
 	var $db_fields = array(
-		 'parent' => 'parent'
-		,'id'     => 'term_id'
+		'parent' => 'parent',
+		'id'     => 'term_id'
 	);
-	public $tax_name;
+
+	/**
+	 * @var string
+	 */
+	public $tax_name = '';
 
 	/**
 	 * @see   Walker::start_el()
@@ -19,7 +34,7 @@ class WCMF_walker extends Walker_CategoryDropdown
 	 * @param  int    $id
 	 * @return void
 	 */
-	function start_el( &$output, $term, $depth, $args, $id = 0 )
+	public function start_el( &$output, $term, $depth = 0, $args = array(), $id = 0 )
 	{
 		$pad = str_repeat( '&nbsp;', $depth * 3 );
 		$cat_name = apply_filters( 'list_cats', $term->name, $term );

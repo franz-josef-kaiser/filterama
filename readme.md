@@ -102,3 +102,5 @@ Preparation for this feature is in production. Expect it with a future version.
 ## Upgrade Notice
 
  * Nothing. Things just work like a charm.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/filterama/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

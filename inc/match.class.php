@@ -23,17 +23,23 @@ final class WCMF_match extends WCMF_base
 		add_filter( 'pre_get_posts', array( $this, 'tax_filter' ) );
 	}
 
+	/**
+	 * WP 3.8 already put the submit button there.
+	 * @return string
+	 */
 	public function get_markup()
 	{
-		return printf(
-			'%s &nbsp;',
-			get_submit_button(
-				__( 'Match', 'filterama' ),
-				'secondary',
-				$this->get_param,
-				false
-			)
-		);
+		return '';
+		
+		// return printf(
+		// 	'%s &nbsp;',
+		// 	get_submit_button(
+		// 		__( 'Match', 'filterama' ),
+		// 		'secondary',
+		// 		$this->get_param,
+		// 		false
+		// 	)
+		// );
 	}
 
 	/**

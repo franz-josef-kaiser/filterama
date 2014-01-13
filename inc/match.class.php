@@ -24,7 +24,7 @@ final class WCMF_match extends WCMF_base
 	}
 
 	/**
-	 * Retornando string vazia, pois o WP já coloca o botão de submit
+	 * WP 3.8 already put the submit button there.
 	 * @return string
 	 */
 	public function get_markup()

@@ -36,6 +36,11 @@ If you want to get updates, just follow us on…
 
 Preparation for this feature is in production. Expect it with a future version.
 
+### Filterama doesn't work with my Custom Post Types!
+
+Make sure that your Custom Post Type Taxonomy declares `show_admin_column => true` in its `$args` array. Filterama will only hook those taxonomies with `show_admin_column` set to true. 
+
+
 ## Screenshots
 
 ###1. The Plugin in action on a custom post type###

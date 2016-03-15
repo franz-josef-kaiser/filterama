@@ -36,7 +36,9 @@ final class WCMF_filter extends WCMF_base
 	{
 		$walker = new WCMF_walker;
 		foreach ( $this->taxonomies as $tax )
-		{
+		{	
+			$fullTax = get_taxonomy( $tax );
+			$qString = isset($fullTax->query_var) ? $fullTax->query_var : $tax;
 			wp_dropdown_categories( array(
 				 'taxonomy'        => $tax
 				,'hide_if_empty'   => true
@@ -47,10 +49,10 @@ final class WCMF_filter extends WCMF_base
 				,'hierarchical'    => is_taxonomy_hierarchical( $tax )
 				,'show_count'      => true
 				,'orderby'         => 'name'
-				,'selected'        => '0' !== get_query_var( $tax )
-					? get_query_var( $tax )
+				,'selected'        => '0' !== get_query_var( $qString )
+					? get_query_var( $qString )
 					: false
-				,'name'            => $tax
+				,'name'            => $qString
 				,'id'              => $tax
 				,'walker'          => $walker
 			) );

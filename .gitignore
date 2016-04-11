@@ -1,3 +1,5 @@
-# PSD/AI
-assets/*
-.assets
+# IDEs
+/.idea
+
+# Package Managers
+/vendor

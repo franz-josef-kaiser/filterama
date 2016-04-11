@@ -44,7 +44,7 @@ Preparation for this feature is in production. Expect it with a future version.
 
 = 1.2 =
 
- * Updated custom Walker to align with defaults from WP Category Walker
+ * Updated custom Walker to align with defaults from WP Category Walker props @hughc
 
 = 1.1 =
 

@@ -1,30 +1,28 @@
-# (WCM) Filterama
-**Contributors:** F J Kaiser, userabuser, kai-ser
-**License:** MIT
-**Tags:** admin, post, list, filter, categories, tags, post-tags, taxonomy, taxonomies
-**Requires at least:** 3.5
-**Tested up to:** 3.6
-**Stable tag:** 1.2
+# WCM Filterama
 
-## Description
-
-Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a
+> Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a
 (custom) post types list in the admin post list page. Also adds a "match" button
 so you can now "filter" the list by ALL or ANY taxonomy terms.
 
-Available in English & German. Translations welcome. Just grab the .pot file, translate the
-single string and/or send us an email or file a pull request on GitHub.
+## Translations
 
-### (WCM) WeCodeMore
+Available in English & German. Translations welcome. 
+We currently use _POEditor_ which is tightly integrated with _GitHub_ to lower 
+the entry barrier for translating as much as possible. 
+[**Help us translating!**](https://poeditor.com/join/project/fwdDFCwQpn)
 
-WeCodeMore is your label for high quality WordPress code from renowned authors.
+### (WCM) wecodemore
+
+_wecodemore_ is your label for high quality WordPress code from renowned authors.
 
 If you want to get updates, just follow us on…
 
- * [our page on Google+](https://plus.google.com/b/109907580576615571040/109907580576615571040/posts)
+ * [our Twitter account](https://twitter.com/wecodemore)
  * [our GitHub repository](https://github.com/wecodemore)
 
 ## Installation
+
+#### Conventional / sFTP
 
 1. Upload the `filterama` folder to the `/wp-content/plugins/` directory
 1. Activate the (WCM) Filterama plugin through the 'Plugins' menu in WordPress
@@ -32,80 +30,13 @@ If you want to get updates, just follow us on…
 
 ## Frequently Asked Questions
 
-### Can I match by any term instead of all?
+#### Filterama doesn't work with my Custom Post Types!
 
-Preparation for this feature is in production. Expect it with a future version.
-
-### Filterama doesn't work with my Custom Post Types!
-
-Make sure that your Custom Post Type Taxonomy declares `show_admin_column => true` in its `$args` array. Filterama will only hook those taxonomies with `show_admin_column` set to true. 
-
+Make sure that your Custom Post Type Taxonomy declares 
+`show_admin_column => true` in its `$args` array. 
+Filterama will only hook those taxonomies with `show_admin_column` set to true. 
 
 ## Screenshots
 
 ###1. The Plugin in action on a custom post type###
 ![The Plugin in action on a custom post type](https://raw.github.com/franz-josef-kaiser/filterama/master/screenshot-1.png)
-
-
-## Changelog
-
-### 1.2
-
- * Updated custom Walker to align with defaults from WP Category Walker
-
-### 1.1
-
- * Simplified internals
- * Added custom walker
-
-### 1.0
-
- * Release ready
-
-### 0.5
-
- * Fixed hierarchical display of hierarchical taxonomy select elements
- * Now uses a core function
- * Sorts elements by parent
- * Added .pot catalogue
- * Added translation files for EN and DE
- * Fixed translation file loading
-
-### 0.4
-
- * Added l18n/translation loading
- * Added "match" button and behavior
- * Intercept on pre_get_posts to alter the tax query for "match"
-
-### 0.3.4
-
- * Added base file
- * Smartened up loading logic
-
-### 0.3.3
-
- * Split into separate files: bootstrap, filters, match
- * Wrapped up in several classes
- * Added Milestones & GitHub Issues for 0.4 & 0.5
-
-### 0.3.2
-
- * Added "Match" button
- * Added "Match" query string filter
- * Added term ID fetching method
-
-### 0.3.1
-
- * Decent optimisations
-
-### 0.3
-
- * Repo ready
- * Added screenshot
- * Added readme.txt
-
-## Upgrade Notice
-
- * Nothing. Things just work like a charm.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/filterama/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

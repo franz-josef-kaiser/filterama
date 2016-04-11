@@ -13,8 +13,8 @@ $vendor = dirname( dirname( __FILE__ ) ).'/vendor/';
 if ( ! realpath( $vendor ) )
 	return print 'No Composer autoloader found for Unit tests';
 
-require_once $vendor.'antecedent/patchwork/Patchwork.php';
-require_once $vendor.'phpunit/phpunit/src/Framework/Assert/Functions.php';
+#require_once $vendor.'antecedent/patchwork/Patchwork.php';
+#require_once $vendor.'phpunit/phpunit/src/Framework/Assert/Functions.php';
 require_once $vendor.'autoload.php';
 
 unset( $vendor );

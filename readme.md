@@ -6,10 +6,18 @@ so you can now "filter" the list by ALL or ANY taxonomy terms.
 
 ## Translations
 
-Available in English & German. Translations welcome. 
-We currently use _POEditor_ which is tightly integrated with _GitHub_ to lower 
-the entry barrier for translating as much as possible. 
-[**Help us translating!**](https://poeditor.com/join/project/fwdDFCwQpn)
+:speech_balloon: Available in English & German - for now. Translations welcome! 
+
+We currently use _POEditor_, which is tightly integrated with _GitHub_, to lower 
+the entry barrier for translating as much as possible.
+[**Help us translate!**](https://poeditor.com/join/project/fwdDFCwQpn)
+![Filterama on POEditor](http://i.imgur.com/JEr2hgo.png?1)
+
+_Please just file an issue if your language is not on POEditor._
+
+## Development
+
+Development happens on GitHub. The Kanban board can be found on _Waffle_. 
 
 ### (WCM) wecodemore
 
@@ -35,6 +43,13 @@ If you want to get updates, just follow us on…
 Make sure that your Custom Post Type Taxonomy declares 
 `show_admin_column => true` in its `$args` array. 
 Filterama will only hook those taxonomies with `show_admin_column` set to true. 
+
+## Security Issues
+
+**Do not!** use the issue tracker if you find a security issue. Those are public. 
+Please instead send an email to the address that you can read 
+[on my profile](https://github.com/franz-josef-kaiser). Else people could use 
+that exploit on your site as well. Thank you in advance.
 
 ## Screenshots
 

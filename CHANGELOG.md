@@ -1,3 +1,6 @@
+Please take a look at the list of [releases](../../releases).
+Always use [the latest](../../releases/latest).
+
 ### 1.2
 
  * Updated custom Walker to align with defaults from WP Category Walker

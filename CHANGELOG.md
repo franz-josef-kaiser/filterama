@@ -26,29 +26,33 @@ Always use [the latest](../../releases/latest).
 ### 0.4
 
  * Added l18n/translation loading
- * Added "match" button and behavior
  * Intercept on pre_get_posts to alter the tax query for "match"
+
+### 0.3.5
+
+ * Better loading logic
+ * Added base file
+ * Split into separate files: bootstrap, filters, match
+ * Wrapped up in several classes
 
 ### 0.3.4
 
- * Added base file
- * Smartened up loading logic
+ * Code Readability
 
 ### 0.3.3
 
- * Split into separate files: bootstrap, filters, match
- * Wrapped up in several classes
  * Added Milestones & GitHub Issues for 0.4 & 0.5
-
-### 0.3.2
-
  * Added "Match" button
  * Added "Match" query string filter
  * Added term ID fetching method
 
+### 0.3.2
+
+ * Fix "match all" query
+
 ### 0.3.1
 
- * Decent optimisations
+ * Decent optimisations for the documentation
 
 ### 0.3
 

@@ -67,25 +67,29 @@ Preparation for this feature is in production. Expect it with a future version.
 = 0.4 =
 
  * Added l18n/translation loading
- * Added "match" button and behavior
  * Intercept on pre_get_posts to alter the tax query for "match"
+
+= 0.3.5 =
+
+ * Added base file
+ * Split into separate files: bootstrap, filters, match
+ * Wrapped up in several classes
+ * Smartened up loading logic
 
 = 0.3.4 =
 
- * Added base file
- * Smartened up loading logic
+ * Code readability improvements
 
 = 0.3.3 =
 
- * Split into separate files: bootstrap, filters, match
- * Wrapped up in several classes
  * Added Milestones & GitHub Issues for 0.4 & 0.5
-
-= 0.3.2 =
-
  * Added "Match" button
  * Added "Match" query string filter
  * Added term ID fetching method
+
+= 0.3.2 =
+
+ * Fix "match all" query
 
 = 0.3.1 =
 

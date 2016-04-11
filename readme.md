@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/franz-josef-kaiser/filterama.png?label=ready&title=Ready)](https://waffle.io/franz-josef-kaiser/filterama)
 # WCM Filterama
 
 > Adds one taxonomy filter/drop-down/select box for each taxonomy attached to a

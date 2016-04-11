@@ -1,0 +1,42 @@
+{
+	"name"              : "wecodemore/filterama",
+	"description"       : "Allows to match or filter admin post list screens by taxonomy terms",
+	"license"           : "MIT",
+	"type"              : "wordpress-plugin",
+	"minimum-stability" : "stable",
+	"prefer-stable"     : true,
+	"authors"           : [
+		{
+			"name"  : "Franz Josef Kaiser",
+			"email" : "wecodemore@gmail.com"
+		}
+	],
+	"require"           : {
+		"php"                 : ">=5.4",
+		"composer/installers" : "~1.0.0"
+	},
+	"require-dev"       : {
+		"phpunit/phpunit" : "~4.8.0",
+		"brain/monkey"    : "~1.2.1"
+	},
+	"autoload"          : {
+		"psr-4" : {
+			"WCM\\Filterama\\" : "src/"
+		}
+	},
+	"autoload-dev"      : {
+		"psr-4" : {
+			"WCM\\Filterama\\Tests\\" : "tests/src/"
+		}
+	},
+	"extra"             : {
+		"branch-alias"    : {
+			"dev-dev" : "1.3.x-dev"
+		},
+		"installer-paths" : {
+			"vendor/{$name}" : [
+				"type:wordpress-plugin"
+			]
+		}
+	}
+}

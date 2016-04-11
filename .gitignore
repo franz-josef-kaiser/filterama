@@ -2,4 +2,5 @@
 /.idea
 
 # Package Managers
+composer.phar
 /vendor

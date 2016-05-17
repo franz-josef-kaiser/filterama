@@ -13,11 +13,15 @@ the entry barrier for translating as much as possible.
 [**Help us translate!**](https://poeditor.com/join/project/fwdDFCwQpn)
 ![Filterama on POEditor](http://i.imgur.com/JEr2hgo.png?1)
 
-_Please just file an issue if your language is not on POEditor._
+_Please just file [an issue](issues) if your language is not on POEditor._
 
 ## Development
 
-Development happens on GitHub. The Kanban board can be found on _Waffle_. 
+[![Stories in Ready](https://badge.waffle.io/franz-josef-kaiser/filterama.png?label=ready&title=Ready!)](https://waffle.io/franz-josef-kaiser/filterama)
+
+Development happens on GitHub. Feature requests, enhancements, bug fixes and 
+new user stories are all done [in GitHub issues](issues). A Kanban board to 
+track the status can be found on _Waffle_. 
 
 ### (WCM) wecodemore
 

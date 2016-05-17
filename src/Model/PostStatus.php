@@ -9,13 +9,34 @@
  */
 
 namespace WCM\Filterama\Model;
+use WCM\Filterama\Exception\DomainException;
 
 /**
  * Class WCM\Filterama\Model\PostStatus
  */
 class PostStatus implements ModelInterface
 {
-	public function getData()
+	/** @type string */
+	private $postType;
+
+	/**
+	 * PostStatus constructor.
+	 * * @param \WCM\Filterama\Model\ResolverInterface $screen
+	 */
+	public function __construct( ResolverInterface $screen )
+	{
+		try {
+			$this->postType = $screen->resolve( 'post_type' );
+		}
+		catch ( DomainException $exception ) {
+			throw $exception;
+		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getResult()
 	{
 		return get_post_stati( [
 			'show_in_admin_status_list' => true,
@@ -23,7 +44,7 @@ class PostStatus implements ModelInterface
 			'exclude_from_search'       => false,
 			'internal'                  => false,
 			'private'                   => current_user_can(
-				get_post_type_object( $this->post_type )
+				get_post_type_object( $this->postType )
 					->cap
 					->read_private_posts
 			),

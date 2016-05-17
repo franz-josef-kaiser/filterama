@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace WCM\Filterama;
+namespace WCM\Filterama\View;
 
 /**
- * Class WCM\Filterama\Walker
+ * Class WCM\Filterama\View\Walker
  * @extends Walker_CategoryDropdown
  */
-class Walker extends Walker_CategoryDropdown
+class Walker extends \Walker_CategoryDropdown
 {
 	/** @var string */
 	public $tree_type = 'category';
@@ -22,7 +22,7 @@ class Walker extends Walker_CategoryDropdown
 	/** @var array */
 	public $db_fields = [
 		'parent' => 'parent',
-		'id'     => 'term_id'
+		'id'     => 'term_id',
 	];
 
 	/** @var string */
@@ -39,29 +39,20 @@ class Walker extends Walker_CategoryDropdown
 	 */
 	public function start_el( &$output, $term, $depth = 0, $args = array(), $id = 0 )
 	{
-		$pad = str_repeat(
-			'&nbsp;',
-			$depth * 3
-		);
-		$cat_name = apply_filters(
-			'list_cats',
-			$term->name,
-			$term
-		);
+		$pad      = str_repeat( '&nbsp;', $depth * 3 );
+		$catName  = apply_filters( 'list_cats', $term->name, $term );
+		$selected = selected( $args['selected'], $term->slug, false );
+		$count = '';
+		$args['show_count']
+			and $count = "&nbsp;&nbsp;({$term->count})";
 
-		$output .= sprintf(
-			'<option class="level-%s" value="%s" %s>%s%s</option>',
-			$depth,
-			$term->slug,
-			selected(
-				$args['selected'],
-				$term->slug,
-				false
-			),
-			"{$pad}{$cat_name}",
-			$args['show_count']
-				? "&nbsp;&nbsp;({$term->count})"
-				: ''
-		);
+		$output .= <<<EOF
+<option
+	class="level-{$depth}"
+	value="{$term->slug}"
+	{$selected}>
+		{$pad}{$catName}{$count}
+</option>
+EOF;
 	}
 }

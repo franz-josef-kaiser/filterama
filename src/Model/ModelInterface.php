@@ -16,5 +16,5 @@ namespace WCM\Filterama\Model;
  */
 interface ModelInterface
 {
-	public function getData();
+	public function getResult();
 }

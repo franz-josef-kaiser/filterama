@@ -51,16 +51,18 @@ final class WCMF_match extends WCMF_base
 	{
 		if (
 			! isset( $_GET[ $this->get_param ] )
-			OR ! $query->is_main_query()
+			or ! $query->is_main_query()
 		)
-			return;
+			return $query;
+			#return;
 
 		property_exists( $query->tax_query, 'queries' )
-		AND ! empty( $query->tax_query->queries )
-			AND $query->set( 'tax_query', array_merge(
+		&& ! empty( $query->tax_query->queries )
+			and $query->set( 'tax_query', array_merge(
 				$query->tax_query->queries,
 				array( 'relation' => 'OR' )
 			) );
+
 		return $query;
 	}
 

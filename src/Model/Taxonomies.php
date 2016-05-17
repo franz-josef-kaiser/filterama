@@ -10,39 +10,59 @@
 
 namespace WCM\Filterama\Model;
 
+use WCM\Filterama\Exception\DomainException;
+
 /**
  * Class WCM\Filterama\Model\Taxonomies
  */
 class Taxonomies implements ModelInterface
 {
+	/** @type string */
 	private $postType;
 
+	/**
+	 * Taxonomies constructor.
+	 * @param \WCM\Filterama\Model\ResolverInterface $screen
+	 * @throws \WCM\Filterama\Exception\DomainException
+	 */
 	public function __construct( ResolverInterface $screen )
 	{
-		$this->postType = $screen->resolve( 'post_type' );
+		try {
+			$this->postType = $screen->resolve( 'post_type' );
+		}
+		catch ( DomainException $exception ) {
+			throw $exception;
+		}
 	}
 
-	public function getData()
+	/**
+	 * Combine core, post type and custom taxonomies
+	 * @return array An array where keys and values are the same
+	 */
+	public function getResult()
 	{
-		return array_diff(
+		$result = array_diff(
 			$this->getPostTypeTaxonomies(),
 			$this->getCustomTaxonomies(),
 			$this->getCoreTaxonomies()
 		);
+		return array_combine( $result, $result );
 	}
 
 	/**
-	 * @return mixed
+	 * All taxonomies assigned to the currently shown post type
+	 * @return array
 	 */
-	private function getPostTypeTaxonomies()
+	protected function getPostTypeTaxonomies()
 	{
-		return get_object_taxonomies( $this->post_type );
+		return get_object_taxonomies( $this->postType );
 	}
 
 	/**
-	 * @return mixed
+	 * Registered taxonomy names
+	 * @return array
 	 */
-	private function getCustomTaxonomies()
+	protected function getCustomTaxonomies()
 	{
 		return get_taxonomies( [
 			'show_admin_column' => false,
@@ -50,10 +70,10 @@ class Taxonomies implements ModelInterface
 	}
 
 	/**
-	 * Hard coded taxonomy selects
+	 * Hard coded taxonomy names in select elements
 	 * @return array
 	 */
-	private function getCoreTaxonomies()
+	protected function getCoreTaxonomies()
 	{
 		return [
 			'category',

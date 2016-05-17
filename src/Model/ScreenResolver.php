@@ -25,14 +25,22 @@ class ScreenResolver implements ResolverInterface
 		$this->screen = $screen;
 	}
 
+	/**
+	 * @param $property
+	 * @throws \InvalidArgumentException
+	 * @return mixed
+	 */
 	public function resolve( $property )
 	{
 		if ( ! isset( $this->screen->{$property} ) )
 		{
 			throw new DomainException( sprintf(
-					'%s was not found',
-					$property
-			) );
+				"%s is no existing, public property in this instance of %s - "
+				."Known properties are: %s",
+				get_class( $this->screen ),
+				$property,
+				var_export( get_class_vars( $this->screen ), true )
+			), DomainException::NONEXISTANT );
 		}
 
 		return $this->screen->{$property};
